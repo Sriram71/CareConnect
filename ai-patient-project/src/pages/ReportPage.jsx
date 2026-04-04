@@ -99,7 +99,7 @@
 
 // export default ReportPage;
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import generateReport from '../services/generateReport';
 import parseReport from '../services/parseReport';
@@ -155,9 +155,14 @@ function ReportPage() {
 //     fetchReport();
 //   }, [location.state]);
 
+const hasFetched = useRef(false);
+
 useEffect(() => {
+  // Guard against React StrictMode double-invoke in development
+  if (hasFetched.current) return;
+  hasFetched.current = true;
+
   const fetchReport = async () => {
-    // Read from localStorage first, fall back to location.state
     const transcript =
       localStorage.getItem("transcript") ||
       location.state?.transcript;
@@ -169,18 +174,11 @@ useEffect(() => {
     }
 
     try {
-      console.log("Transcript:", transcript);
       const rawReport = await generateReport(transcript);
-
-      console.log("Raw report:", rawReport);
       if (!rawReport) throw new Error("Empty response from model.");
 
       const parsedReport = parseReport(rawReport);
-      console.log("Parsed report:", parsedReport);
-
       setReport(parsedReport);
-
-      // Clean up after successful use
       localStorage.removeItem("transcript");
     } catch (err) {
       console.error("Error generating report:", err);
@@ -191,7 +189,7 @@ useEffect(() => {
   };
 
   fetchReport();
-}, []); // ✅ empty deps — no longer depends on location.state
+}, []);
   const handleRetry = () => {
     setError(null);
     setLoading(true);
