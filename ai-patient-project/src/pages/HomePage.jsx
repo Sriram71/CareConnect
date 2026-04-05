@@ -12,10 +12,10 @@ function HomePage() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-6">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          Describe your patent, let AI write the report
+          Describe your symptoms, let AI write the report
         </h1>
         <p className="text-lg text-gray-600">
-          Streamline your patent documentation process with AI assistance.
+          Streamline your medical consultation process with AI assistance.
         </p>
       </div>
 
@@ -35,7 +35,7 @@ function HomePage() {
       </button>
 
       <p className="mt-6 text-sm text-gray-500 max-w-md text-center">
-        This tool assists with patent documentation only. Always consult a registered patent attorney.
+        This tool assists with medical documentation only. Always consult a licensed medical professional.
       </p>
     </div>
   );

@@ -1,15 +1,11 @@
 import { OpenAI } from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://router.huggingface.co/v1",
-  apiKey: "",
+  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
 });
 
 const generateReport = async (transcript) => {
-  const MODEL_CONTEXT_LIMIT = 4096;
-  const MAX_OUTPUT_TOKENS = 400;
-
   const systemPrompt = `You are a medical report generator. Your only job is to read a patient interview transcript and output a structured report.
 You must ALWAYS reply in EXACTLY this format — no extra text, no explanations, no questions:
 
@@ -22,32 +18,20 @@ Key Recommendations: <comma-separated list of recommended actions>`;
 
 --- TRANSCRIPT START ---
 ${transcript}
---- TRANSCRIPT END ---
-
-Patient Name:`;
-
-  const estimatedInputTokens = Math.ceil((systemPrompt.length + userPrompt.length) / 4);
-  const availableForOutput = MODEL_CONTEXT_LIMIT - estimatedInputTokens;
-
-  if (availableForOutput < 100) {
-    throw new Error("Transcript is too long. Please shorten it.");
-  }
-
-  const maxTokens = Math.min(MAX_OUTPUT_TOKENS, availableForOutput - 50);
+--- TRANSCRIPT END ---`;
 
   try {
     const chatCompletion = await client.chat.completions.create({
-      model: "mistralai/Mistral-7B-Instruct-v0.2:featherless-ai",
+      model: "gpt-4o-mini",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user",   content: userPrompt },
       ],
-      max_tokens: maxTokens,
+      max_tokens: 400,
+      temperature: 0,
     });
 
-    // The model continues from "Patient Name:" so we prepend it back
-    const content = chatCompletion.choices[0].message.content;
-    return `Patient Name: ${content}`;
+    return chatCompletion.choices[0].message.content;
   } catch (error) {
     console.error("Error generating report:", error);
     throw new Error("Failed to generate report.");

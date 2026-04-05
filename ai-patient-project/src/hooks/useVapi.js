@@ -2,8 +2,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import * as Vapi from '@vapi-ai/web';
 
-const PUBLIC_KEY = '';
-const ASSISTANT_ID = '';
+const PUBLIC_KEY = import.meta.env.VITE_VAPI_PUBLIC_KEY;
+const ASSISTANT_ID = import.meta.env.VITE_VAPI_ASSISTANT_ID;
 
 export default function useVapi() {
   const vapiRef = useRef(null);
