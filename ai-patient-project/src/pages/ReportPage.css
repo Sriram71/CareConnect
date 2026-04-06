@@ -1,71 +1,672 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap');
+
+/* ── Shared layout ── */
 .reportContainer {
-  padding: 24px;
+  padding: 0;
 }
 
-/* Loading screen */
+/* ── Loading screen ── */
 .loaderContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 60vh;
 }
 
-/* Spinner */
-.loader {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #e5e7eb;
-  border-top: 4px solid #2563eb;
+.loaderCard {
+  background: #ffffff;
+  border: 0.5px solid #d4ddd6;
+  border-radius: 16px;
+  padding: 44px 48px;
+  text-align: center;
+  max-width: 360px;
+  width: 100%;
+}
+
+.pulseRing {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 16px;
+  border: 2px solid #e6f2ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  animation: pulseBorder 1.8s ease-in-out infinite;
+}
+
+.pulseInner {
+  width: 38px;
+  height: 38px;
+  background: #1a6b52;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulseInner svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes pulseBorder {
+  0%, 100% { border-color: #e6f2ed; transform: scale(1); }
+  50%       { border-color: #9FE1CB; transform: scale(1.08); }
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
+}
+
+.loadingTitle {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: #1a1f1c;
+  margin-bottom: 6px;
 }
 
 .loadingText {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 13.5px;
+  color: #7a9185;
+  font-weight: 300;
 }
 
-/* Error screen */
+.loadingDots {
+  display: inline-flex;
+  gap: 5px;
+  margin-top: 18px;
+}
+
+.loadingDots span {
+  width: 5px;
+  height: 5px;
+  background: #1a6b52;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+.loadingDots span:nth-child(2) { animation-delay: 0.2s; }
+.loadingDots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0.3; }
+  40%           { opacity: 1; }
+}
+
+/* ── Error screen ── */
 .errorContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 60vh;
 }
 
-.errorBox {
-  background-color: #fee2e2;
-  color: #b91c1c;
-  padding: 16px;
-  border-radius: 6px;
-  margin-bottom: 16px;
+.errorCard {
+  background: #ffffff;
+  border: 0.5px solid #d4ddd6;
+  border-radius: 16px;
+  padding: 44px 48px;
+  text-align: center;
+  max-width: 360px;
+  width: 100%;
+}
+
+.errorIcon {
+  width: 52px;
+  height: 52px;
+  background: #FCEBEB;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.errorIcon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #A32D2D;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.errorTitle {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  color: #1a1f1c;
+  margin-bottom: 8px;
+}
+
+.errorMessage {
+  font-size: 13.5px;
+  color: #7a9185;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 22px;
 }
 
 .retryButton {
-  padding: 8px 16px;
-  background-color: #2563eb;
-  color: white;
-  border-radius: 6px;
+  background: #1a6b52;
+  color: #ffffff;
   border: none;
+  padding: 11px 24px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
   cursor: pointer;
+  transition: background 0.15s;
 }
 
 .retryButton:hover {
-  background-color: #1d4ed8;
+  background: #145540;
 }
 
-/* Success message */
-.successMessage {
-  margin-top: 24px;
-  color: #16a34a;
-  font-weight: bold;
+
+
+
+
+/* ── Page layout ─────────────────────────────────────────────────────── */
+
+.reportContainer {
+  min-height:     100vh;
+  padding:        40px 20px 60px;
+  background:     #f5f7fc;
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+}
+
+.reportPageHeader {
+  text-align:    center;
+  margin-bottom: 28px;
+}
+
+.reportPageTitle {
+  font-size:   1.75rem;
+  font-weight: 700;
+  color:       #1a1d2e;
+  margin:      0 0 6px;
+}
+
+.reportPageSub {
+  font-size: 0.9rem;
+  color:     #9aa0b4;
+  margin:    0;
+}
+
+/* ── Loading state ───────────────────────────────────────────────────── */
+
+.loaderContainer {
+  min-height:      100vh;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  background:      #f5f7fc;
+  padding:         20px;
+}
+
+.loaderCard {
+  background:    #ffffff;
+  border:        1px solid #e8eaf0;
+  border-radius: 16px;
+  box-shadow:    0 4px 24px rgba(0, 0, 0, 0.07);
+  padding:       48px 40px;
+  max-width:     360px;
+  width:         100%;
+  text-align:    center;
+  display:       flex;
+  flex-direction: column;
+  align-items:   center;
+  gap:           12px;
+}
+
+/* Pulsing ring around the spinning icon */
+.pulseRing {
+  position:      relative;
+  width:         72px;
+  height:        72px;
+  border-radius: 50%;
+  background:    #f0f3ff;
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.pulseRing::before,
+.pulseRing::after {
+  content:       '';
+  position:      absolute;
+  inset:         -8px;
+  border-radius: 50%;
+  border:        2px solid #4f6ef7;
+  opacity:       0;
+  animation:     pulseOut 2s ease-out infinite;
+}
+
+.pulseRing::after {
+  animation-delay: 0.6s;
+}
+
+@keyframes pulseOut {
+  0%   { inset: -4px;  opacity: 0.6; }
+  100% { inset: -20px; opacity: 0; }
+}
+
+.pulseInner {
+  width:            40px;
+  height:           40px;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  animation:        spinSlow 2s linear infinite;
+}
+
+.pulseInner svg {
+  width:  28px;
+  height: 28px;
+  stroke: #4f6ef7;
+  stroke-width: 1.5;
+  fill:   none;
+  stroke-linecap: round;
+}
+
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+.loadingTitle {
+  font-size:   1.1rem;
+  font-weight: 700;
+  color:       #1a1d2e;
+  margin:      0;
+}
+
+.loadingText {
+  font-size: 0.88rem;
+  color:     #9aa0b4;
+  margin:    0;
+}
+
+/* Animated three-dot indicator */
+.loadingDots {
+  display: flex;
+  gap:     6px;
+  margin-top: 4px;
+}
+
+.loadingDots span {
+  display:       block;
+  width:         7px;
+  height:        7px;
+  border-radius: 50%;
+  background:    #4f6ef7;
+  animation:     dotBounce 1.2s ease-in-out infinite;
+}
+
+.loadingDots span:nth-child(2) { animation-delay: 0.2s; }
+.loadingDots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%           { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Error state ─────────────────────────────────────────────────────── */
+
+.errorContainer {
+  min-height:      100vh;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  background:      #f5f7fc;
+  padding:         20px;
+}
+
+.errorCard {
+  background:    #ffffff;
+  border:        1px solid #f5c6c6;
+  border-radius: 16px;
+  box-shadow:    0 4px 24px rgba(0, 0, 0, 0.07);
+  padding:       48px 40px;
+  max-width:     360px;
+  width:         100%;
+  text-align:    center;
+  display:       flex;
+  flex-direction: column;
+  align-items:   center;
+  gap:           10px;
+}
+
+.errorIcon {
+  width:           56px;
+  height:          56px;
+  border-radius:   50%;
+  background:      #fff1f1;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  margin-bottom:   4px;
+}
+
+.errorIcon svg {
+  width:        28px;
+  height:       28px;
+  stroke:       #c0392b;
+  stroke-width: 1.5;
+  fill:         none;
+  stroke-linecap: round;
+}
+
+.errorTitle {
+  font-size:   1.05rem;
+  font-weight: 700;
+  color:       #1a1d2e;
+  margin:      0;
+}
+
+.errorMessage {
+  font-size:   0.88rem;
+  color:       #6b7280;
+  margin:      0;
+  line-height: 1.55;
+}
+
+.retryButton {
+  margin-top:    8px;
+  padding:       11px 28px;
+  background:    #4f6ef7;
+  color:         #ffffff;
+  border:        none;
+  border-radius: 10px;
+  font-size:     0.88rem;
+  font-weight:   600;
+  cursor:        pointer;
+  transition:    background 0.18s ease;
+}
+
+.retryButton:hover {
+  background: #3a59e0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 520px) {
+  .reportContainer {
+    padding: 24px 16px 48px;
+  }
+
+  .loaderCard,
+  .errorCard {
+    padding: 32px 24px;
+  }
+
+  .reportPageTitle {
+    font-size: 1.4rem;
+  }
+}
+
+/* ── ReportCard ──────────────────────────────────────────────────────── */
+
+.reportCard {
+  background:     #ffffff;
+  border:         1px solid #e8eaf0;
+  border-radius:  16px;
+  box-shadow:     0 4px 24px rgba(0, 0, 0, 0.07);
+  padding:        32px;
+  max-width:      700px;
+  width:          100%;
+  margin:         0 auto;
+}
+
+/* ── Header ── */
+
+.reportCard__header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     flex-start;
+  gap:             16px;
+  margin-bottom:   20px;
+}
+
+.reportCard__patientInfo {
+  display:        flex;
+  flex-direction: column;
+}
+
+.reportCard__name {
+  font-size:   1.5rem;
+  font-weight: 700;
+  color:       #1a1d2e;
+  margin:      0;
+  line-height: 1.2;
+}
+
+/* ── Divider ── */
+
+.reportCard__divider {
+  height:     1px;
+  background: #f0f1f5;
+  margin:     20px 0;
+}
+
+/* ── Section ── */
+
+.reportCard__section {
+  margin-bottom: 18px;
+}
+
+.reportCard__section:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ── Section label (shared) ── */
+
+.reportCard__label {
+  display:        flex;
+  align-items:    center;
+  gap:            7px;
+  font-size:      0.7rem;
+  font-weight:    700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color:          #9aa0b4;
+  margin:         0 0 8px;
+}
+
+/* Coloured icon pill next to each label */
+.reportCard__sectionIcon {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           22px;
+  height:          22px;
+  border-radius:   6px;
+  flex-shrink:     0;
+}
+.reportCard__sectionIcon svg {
+  display: block;
+}
+
+.reportCard__sectionIcon--blue   { background: #eef1fe; color: #4f6ef7; }
+.reportCard__sectionIcon--green  { background: #edfaf3; color: #1e7e4a; }
+.reportCard__sectionIcon--red    { background: #fff1f1; color: #c0392b; }
+.reportCard__sectionIcon--purple { background: #f4f0ff; color: #7c3aed; }
+
+/* ── Body text ── */
+
+.reportCard__body {
+  font-size:   0.93rem;
+  line-height: 1.65;
+  color:       #3d4152;
+  margin:      0;
+}
+
+.reportCard__body--muted {
+  color: #9aa0b4;
+  font-style: italic;
+}
+
+/* ── Bullet lists ── */
+
+.reportCard__list {
+  list-style: none;
+  margin:     0;
+  padding:    0;
+  display:    flex;
+  flex-direction: column;
+  gap:        9px;
+}
+
+.reportCard__listItem {
+  display:     flex;
+  align-items: flex-start;
+  gap:         10px;
+  font-size:   0.91rem;
+  color:       #3d4152;
+  line-height: 1.55;
+}
+
+/* Bullet dot with colour variants */
+.reportCard__bullet {
+  display:      block;
+  width:        8px;
+  height:       8px;
+  border-radius: 50%;
+  flex-shrink:  0;
+  margin-top:   5px;
+}
+
+.reportCard__bullet--blue   { background-color: #4f6ef7; }
+.reportCard__bullet--green  { background-color: #27ae60; }
+.reportCard__bullet--red    { background-color: #c0392b; }
+.reportCard__bullet--purple { background-color: #7c3aed; }
+
+/* ── Disclaimer ── */
+
+.reportCard__disclaimer {
+  font-size:     0.78rem;
+  color:         #9aa0b4;
+  line-height:   1.55;
+  margin:        0 0 20px;
+  padding:       10px 14px;
+  background:    #f8f9fc;
+  border-radius: 8px;
+  border-left:   3px solid #d0d4e8;
+}
+
+/* ── Action buttons row ── */
+
+.reportCard__actions {
+  display:   flex;
+  gap:       12px;
+  flex-wrap: wrap;
+}
+
+.reportCard__btn {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           8px;
+  padding:       11px 22px;
+  border-radius: 10px;
+  font-size:     0.88rem;
+  font-weight:   600;
+  cursor:        pointer;
+  border:        none;
+  transition:    background 0.18s ease, transform 0.1s ease, opacity 0.18s ease;
+}
+
+.reportCard__btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.reportCard__btn:disabled {
+  opacity: 0.6;
+  cursor:  not-allowed;
+}
+
+/* Download — outlined */
+.reportCard__btn--download {
+  background: #f0f3ff;
+  color:      #4f6ef7;
+  border:     1px solid #d0d8fd;
+}
+.reportCard__btn--download:hover:not(:disabled) {
+  background: #e4eaff;
+}
+
+/* Send — filled */
+.reportCard__btn--send {
+  background: #4f6ef7;
+  color:      #ffffff;
+}
+.reportCard__btn--send:hover:not(:disabled) {
+  background: #3a59e0;
+}
+
+/* Sent confirmation state */
+.reportCard__btn--sent {
+  background: #edfaf3 !important;
+  color:      #1e7e4a !important;
+  border:     1px solid #b6e8cc;
+}
+
+/* Spinner inside send button */
+.reportCard__spinner {
+  display:       inline-block;
+  width:         14px;
+  height:        14px;
+  border:        2px solid rgba(255, 255, 255, 0.35);
+  border-top:    2px solid #ffffff;
+  border-radius: 50%;
+  animation:     rcSpin 0.7s linear infinite;
+  flex-shrink:   0;
+}
+
+@keyframes rcSpin {
+  to { transform: rotate(360deg); }
+}
+
+.reportCard__sendError {
+  margin-top: 10px;
+  font-size:  0.82rem;
+  color:      #c0392b;
+}
+
+/* ── Responsive ── */
+@media (max-width: 560px) {
+  .reportCard {
+    padding:       20px;
+    border-radius: 12px;
+  }
+
+  .reportCard__name {
+    font-size: 1.25rem;
+  }
+
+  .reportCard__header {
+    flex-direction: column-reverse;
+    align-items:    flex-start;
+  }
+
+  .reportCard__actions {
+    flex-direction: column;
+  }
+
+  .reportCard__btn {
+    width:           100%;
+    justify-content: center;
+  }
 }

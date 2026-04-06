@@ -1,0 +1,252 @@
+/* ── ReportCard ──────────────────────────────────────────────────────── */
+
+.reportCard {
+  background:     #ffffff;
+  border:         1px solid #e8eaf0;
+  border-radius:  16px;
+  box-shadow:     0 4px 24px rgba(0, 0, 0, 0.07);
+  padding:        32px;
+  max-width:      700px;
+  width:          100%;
+  margin:         0 auto;
+}
+
+/* ── Header ── */
+
+.reportCard__header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     flex-start;
+  gap:             16px;
+  margin-bottom:   20px;
+}
+
+.reportCard__patientInfo {
+  display:        flex;
+  flex-direction: column;
+}
+
+.reportCard__name {
+  font-size:   1.5rem;
+  font-weight: 700;
+  color:       #1a1d2e;
+  margin:      0;
+  line-height: 1.2;
+}
+
+/* ── Divider ── */
+
+.reportCard__divider {
+  height:     1px;
+  background: #f0f1f5;
+  margin:     20px 0;
+}
+
+/* ── Section ── */
+
+.reportCard__section {
+  margin-bottom: 18px;
+}
+
+.reportCard__section:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ── Section label (shared) ── */
+
+.reportCard__label {
+  display:        flex;
+  align-items:    center;
+  gap:            7px;
+  font-size:      0.7rem;
+  font-weight:    700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color:          #9aa0b4;
+  margin:         0 0 8px;
+}
+
+/* Coloured icon pill next to each label */
+.reportCard__sectionIcon {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           22px;
+  height:          22px;
+  border-radius:   6px;
+  flex-shrink:     0;
+}
+.reportCard__sectionIcon svg {
+  display: block;
+}
+
+.reportCard__sectionIcon--blue   { background: #eef1fe; color: #4f6ef7; }
+.reportCard__sectionIcon--green  { background: #edfaf3; color: #1e7e4a; }
+.reportCard__sectionIcon--red    { background: #fff1f1; color: #c0392b; }
+.reportCard__sectionIcon--purple { background: #f4f0ff; color: #7c3aed; }
+
+/* ── Body text ── */
+
+.reportCard__body {
+  font-size:   0.93rem;
+  line-height: 1.65;
+  color:       #3d4152;
+  margin:      0;
+}
+
+.reportCard__body--muted {
+  color: #9aa0b4;
+  font-style: italic;
+}
+
+/* ── Bullet lists ── */
+
+.reportCard__list {
+  list-style: none;
+  margin:     0;
+  padding:    0;
+  display:    flex;
+  flex-direction: column;
+  gap:        9px;
+}
+
+.reportCard__listItem {
+  display:     flex;
+  align-items: flex-start;
+  gap:         10px;
+  font-size:   0.91rem;
+  color:       #3d4152;
+  line-height: 1.55;
+}
+
+/* Bullet dot with colour variants */
+.reportCard__bullet {
+  display:      block;
+  width:        8px;
+  height:       8px;
+  border-radius: 50%;
+  flex-shrink:  0;
+  margin-top:   5px;
+}
+
+.reportCard__bullet--blue   { background-color: #4f6ef7; }
+.reportCard__bullet--green  { background-color: #27ae60; }
+.reportCard__bullet--red    { background-color: #c0392b; }
+.reportCard__bullet--purple { background-color: #7c3aed; }
+
+/* ── Disclaimer ── */
+
+.reportCard__disclaimer {
+  font-size:     0.78rem;
+  color:         #9aa0b4;
+  line-height:   1.55;
+  margin:        0 0 20px;
+  padding:       10px 14px;
+  background:    #f8f9fc;
+  border-radius: 8px;
+  border-left:   3px solid #d0d4e8;
+}
+
+/* ── Action buttons row ── */
+
+.reportCard__actions {
+  display:   flex;
+  gap:       12px;
+  flex-wrap: wrap;
+}
+
+.reportCard__btn {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           8px;
+  padding:       11px 22px;
+  border-radius: 10px;
+  font-size:     0.88rem;
+  font-weight:   600;
+  cursor:        pointer;
+  border:        none;
+  transition:    background 0.18s ease, transform 0.1s ease, opacity 0.18s ease;
+}
+
+.reportCard__btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.reportCard__btn:disabled {
+  opacity: 0.6;
+  cursor:  not-allowed;
+}
+
+/* Download — outlined */
+.reportCard__btn--download {
+  background: #f0f3ff;
+  color:      #4f6ef7;
+  border:     1px solid #d0d8fd;
+}
+.reportCard__btn--download:hover:not(:disabled) {
+  background: #e4eaff;
+}
+
+/* Send — filled */
+.reportCard__btn--send {
+  background: #4f6ef7;
+  color:      #ffffff;
+}
+.reportCard__btn--send:hover:not(:disabled) {
+  background: #3a59e0;
+}
+
+/* Sent confirmation state */
+.reportCard__btn--sent {
+  background: #edfaf3 !important;
+  color:      #1e7e4a !important;
+  border:     1px solid #b6e8cc;
+} 
+
+/* Spinner inside send button */
+.reportCard__spinner {
+  display:       inline-block;
+  width:         14px;
+  height:        14px;
+  border:        2px solid rgba(255, 255, 255, 0.35);
+  border-top:    2px solid #ffffff;
+  border-radius: 50%;
+  animation:     rcSpin 0.7s linear infinite;
+  flex-shrink:   0;
+}
+
+@keyframes rcSpin {
+  to { transform: rotate(360deg); }
+}
+
+.reportCard__sendError {
+  margin-top: 10px;
+  font-size:  0.82rem;
+  color:      #c0392b;
+}
+
+/* ── Responsive ── */
+@media (max-width: 560px) {
+  .reportCard {
+    padding:       20px;
+    border-radius: 12px;
+  }
+
+  .reportCard__name {
+    font-size: 1.25rem;
+  }
+
+  .reportCard__header {
+    flex-direction: column-reverse;
+    align-items:    flex-start;
+  }
+
+  .reportCard__actions {
+    flex-direction: column;
+  }
+
+  .reportCard__btn {
+    width:           100%;
+    justify-content: center;
+  }
+}
